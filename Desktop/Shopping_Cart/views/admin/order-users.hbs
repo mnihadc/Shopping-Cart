@@ -1,0 +1,70 @@
+<section>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">User Orders</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Mobile</th>
+                    <th>Products Quantity</th>
+                    <th>Order Date</th>
+                    <th>Delivered Date</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>View Product</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each ordersAdmin}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td style="color: red;">{{userId}}</td>
+                    <td>{{user}}</td>
+                    <td>{{deliveryDetails.address}}</td>
+                    <td>{{deliveryDetails.pincode}}</td>
+                    <td style="color: black;">{{deliveryDetails.mobile}}</td>
+                    <td>{{this.products.length}}</td>
+                    <td>{{deliveryDetails.orderDate}}</td>
+                    <td>{{deliveryDetails.deliveredDate}}</td>
+                    <td>{{totalAmount}}</td>
+                    <td>{{paymentMethod}}</td>
+                    <td><a href="/admin/view-orders/{{_id}}" class="btn btn-success">View Product</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h2 {
+        color: #343a40;
+    }
+
+    th,
+    td {
+        color: #6c757d;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+</style>

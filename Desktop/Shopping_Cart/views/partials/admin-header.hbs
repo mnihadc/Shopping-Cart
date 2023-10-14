@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .bg-navs {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  {{#unless disableHeader}}
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-navs">
+      <a class="navbar-brand ml-5" href="#">Admin Panel</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" style="margin-left: 18rem;">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/order-users">All Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Checkout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown pr-3 ml-auto">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{#if admins}}
+          {{admins.name}}
+          {{else}}
+          Account
+          {{/if}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {{#if admins}}
+          <a href="/admin/logout-admin" class="dropdown-item">Logout</a>
+          {{else}}
+          <a href="/admin/login-admin" class="dropdown-item">Login</a>
+          {{/if}}
+        </div>
+      </div>
+
+
+    </nav>
+  </header>
+  {{/unless}}

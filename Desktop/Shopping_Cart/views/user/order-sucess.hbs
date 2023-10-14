@@ -1,0 +1,86 @@
+<section>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color:lightblue;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color:  #4CAF50;
+            padding: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+        .message-container {
+            text-align: center;
+            color: #333;
+        }
+        .tick-icon {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-success-heading {
+            margin-top: 15px;
+            font-size: 28px;
+            color: #fff
+        }
+        .order-success-message {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #fff;
+        }
+        .button-container {
+            margin-top: 25px;
+        }
+        .order-link, .home-link {
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .order-link {
+            background-color: #fff;
+            color: #4CAF50;
+            margin-right: 15px;
+        }
+        .order-link:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .home-link {
+            background-color: lightblue;
+            color: #333;
+        }
+        .home-link:hover {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+    
+    <div class="container">
+        <div class="message-container">
+            <div class="tick-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 16.17L5.83 13l-1.42 1.41L9 19 21 7l-1.41-1.41z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+            </div>
+            <h2 class="order-success-heading">Order Placed Successfully</h2>
+            <p class="order-success-message">Your order has been placed successfully.</p>
+            <div class="button-container">
+                <a href="/order" class="order-link">View Order Details</a>
+                <a href="/" class="home-link">Home</a>
+            </div>
+        </div>
+    </div>
+</section>

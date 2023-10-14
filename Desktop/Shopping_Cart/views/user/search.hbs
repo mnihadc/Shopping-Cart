@@ -1,0 +1,72 @@
+<section>
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <div class="search-box p-3">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Search Products Shopping Cart" name="q"
+            aria-label="Search" id="searchInput" autocomplete="off">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <script id="searchResultsTemplate" type="text/x-handlebars-template">
+      {{#each searchResults}}
+      <div class="col-md-3 p-3">
+        <div class="product-list" id="product-list">
+          <div class="card" style="width: 250px;height: 420px;">
+            <img style="width: 200px;height: 200px;" src="/product-images/{{_id}}.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">{{name}}</h5>
+              <p class="card-text">Rs.{{price}}</p>
+              <p class="card-text">{{description}}</p>
+              <button onclick="addToCart('{{_id}}')" class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+  $(document).ready(function () {
+    const searchInput = $('#searchInput');
+    const searchResults = $('#searchResults');
+    const searchResultsTemplate = Handlebars.compile($('#searchResultsTemplate').html());
+
+    searchInput.on('keydown', function (event) {
+      // Check if the pressed key is the Enter key (keyCode 13)
+      if (event.keyCode === 13) {
+        event.preventDefault(); // Prevent form submission
+        const query = $(this).val().trim();
+        if (query !== '') {
+          // Perform an AJAX request to fetch search results
+          $.ajax({
+            url: '/search',
+            method: 'GET',
+            data: { q: query },
+            success: function (data) {
+              console.log("working", data);
+              const renderedHtml = searchResultsTemplate({ searchResults: data });
+
+              // Display the rendered HTML in the searchResults element
+              searchResults.html(renderedHtml);
+            },
+            error: function () {
+              searchResults.html('<p>Error fetching search results.</p>');
+            }
+          });
+        } else {
+          searchResults.empty();
+        }
+      }
+    });
+  });
+
+</script>

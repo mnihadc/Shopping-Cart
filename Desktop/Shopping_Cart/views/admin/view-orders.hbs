@@ -1,0 +1,75 @@
+<section>
+    <div class="container">
+        <button class="btn btn-primary" style="margin-top: 3rem;"><a href="/admin/order-users" style="color: black;text-decoration: none;font-size: 17px;font-weight: bold;">back</a></button>
+        <div class="content-box">
+            <h2 class="heading">Product Details</h2>
+            <section>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orderProduct.products}}
+                        <tr>
+                            <td><img style="width: 80px;height: 80px;" src="/product-images/{{this.item}}.jpg" alt="">
+                            </td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.quantity}}</td>
+                            <td>{{this.price}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</section>
+<style>
+    /* Style the content box */
+    .content-box {
+        margin: 50px auto;
+        /* Adjust the margin as needed */
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the heading */
+    .heading {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Style the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* Style the table header row */
+    .table thead th {
+        background-color: #f2f2f2;
+        color: #333;
+        font-weight: bold;
+    }
+
+    /* Style the table data rows */
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>

@@ -1,0 +1,167 @@
+<section>
+    <div>
+        <a href="/order" class="btn-back btn btn-primary">back</a>
+    </div>
+    <div class="container">
+        <div class="order-summary-box">
+            <div style="margin-left: 2rem;">
+                <h3>Delivered To:</h3>
+                <p style="font-weight: bold;margin-left: 10rem;">{{user.name}}</p>
+                <div style="margin-left: 6rem;">
+                    <p>{{orderView.deliveryDetails.address}}, {{orderView.deliveryDetails.pincode}}</p>
+                    <p>Mobile: {{orderView.deliveryDetails.mobile}}</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Products List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Title</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orderView.products}}
+                <tr>
+                    <td><img style="width: 80px;height: 80px;" src="/product-images/{{this.item}}.jpg" alt=""></td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.price}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="order-details-box">
+            <h3>Order Details</h3>
+            <p>Order Date: {{orderView.deliveryDetails.orderDate}}</p>
+            <p>Delivered Date: {{orderView.deliveryDetails.deliveredDate}}</p>
+            <p>Total Amount: Rs.{{orderView.totalAmount}}</p>
+            <p>Payment-method: {{orderView.paymentMethod}}</p>
+            <p style="color:green;font-weight: bold;">free delivery</p>
+            <p>Order : {{orderView.status}}</p>
+            <p>Packing Charge: Rs.10</p>
+        </div>
+        <a onclick="cancelOrder('{{orderView._id}}')" class="back-btn">Remove</a>
+        <div class="cancel-message-box" id="cancel-message">
+            <p class="cancel-message">Order has been canceled.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .btn-back {
+        margin-top: 2rem;
+        padding: 10px;
+        font-size: 17px;
+        margin-left: 2rem;
+    }
+
+    .container {
+        padding: 40px;
+    }
+
+    .order-summary-box {
+        border: 2px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+
+    .fixed-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: lightblue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .continue-btn {
+        color: #fff;
+        text-decoration: none;
+        background-color: #4CAF50;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-right: 6rem;
+    }
+
+    .back-btn {
+        color: #fff;
+        text-decoration: none;
+        background-color: #f44336;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-left: 30rem;
+    }
+
+    .order-details-box {
+        margin-bottom: 100px;
+    }
+
+    .cancel-message-box {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .cancel-message {
+        margin: 0;
+    }
+</style>
+<script>
+    function cancelOrder(orderId) {
+        if (confirm('Are you sure you want to remove the order?')) {
+            $.ajax({
+                url: `/cancel-order/${orderId}`,
+                method: 'GET',
+                success: function (response) {
+                    if (response.status) {
+                        showCancelMessage();
+                    } else {
+                        alert('Error occurred while canceling the order.');
+                    }
+                },
+                error: function (error) {
+                    alert('Error occurred while canceling the order.');
+                }
+            });
+        }
+    }
+
+    function showCancelMessage() {
+        const messageBox = document.getElementById('cancel-message');
+        messageBox.style.display = 'block';
+
+        setTimeout(() => {
+            messageBox.style.display = 'none';
+            window.location.href = '/order';
+        }, 3000);
+    }
+</script>

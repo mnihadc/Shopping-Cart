@@ -1,0 +1,98 @@
+<section>
+  <div class="container">
+    <h1 class="p-3" style="text-align: center; color: darkblue;">Cart</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each products}}
+            <tr>
+              <td><img style="width: 80px;height: 80px;" src="/product-images/{{this.product._id}}.jpg" alt=""></td>
+              <td>{{this.product.name}}</td>
+              <td>
+                <p>Rs.{{this.product.price}}</p>
+              </td>
+              <td>
+                {{#if (gt this.quantity 1)}}
+                <button class="cart-item-count btn btn-success"
+                  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+                {{else}}
+                <button class="cart-item-count btn btn-success" disabled>-</button>
+                {{/if}}
+
+                <span id="{{this._id}}" class="quantity">{{this.quantity}}</span>
+                <button class="btn btn-success cart-item-count"
+                  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+              </td>
+              <td>
+                <a href="#" class="btn btn-danger"
+                  onclick="removeCartItem('{{this._id}}','{{this.product._id}}')">Remove</a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <hr>
+        <div style="width: 100%; height: 55px; background: lightblue; position: fixed; bottom: 0; left: 0;">
+          <div style="display: flex; align-items: center; height: 100%;">
+            <h3 class="p-2" style="margin-left: 50rem; font-weight: bold;">Total: Rs.<span
+                id="total">{{totalValue}}</span></h3>
+            <a href="/place-order" class="btn btn-success"
+              style="margin-left: auto; margin-right: 7rem; font-size: 1.3rem;">Place Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<script>
+  function changeQuantity(cartId, proId, userId, count,) {
+    console.log(userId)
+    $.ajax({
+      url: '/update-quantity',
+      method: 'post',
+      data: {
+        user: userId,
+        cart: cartId,
+        product: proId,
+        count: count
+      },
+      success: (response) => {
+        location.reload()
+        document.getElementById('total').innerHTML = response.total;
+      },
+      error: (error) => {
+        console.error(error);
+        alert('Failed to update quantity. Please try again later.');
+      }
+    });
+  }
+
+  function removeCartItem(cartId, prodId) {
+    if (confirm('Are you sure you want to remove?')) {
+      $.ajax({
+        url: `/remove-cart/${cartId}/${prodId}`,
+        method: 'get',
+        success: () => {
+          location.reload(); // Reload the page to show the updated cart
+        },
+        error: (error) => {
+          console.error(error);
+          alert('Failed to remove item from cart. Please try again later.');
+        }
+      });
+    }
+  }
+</script>
